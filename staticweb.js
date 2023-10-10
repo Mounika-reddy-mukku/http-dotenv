@@ -1,32 +1,39 @@
 import fs from 'fs'
-import path from 'path'
 import http from 'http'
 import dotenv from 'dotenv'
+import path from 'path'
+
 dotenv.config({path:"config.env"})
-let port=process.env.PORT
+
+let port = process.env.PORT
 let host=process.env.HOST
 
 let server=http.createServer((req,resp)=>{
-    if(req.url ==="/index"){
-        fs.readFile(path.join(__dirname,"web","index.html"),'utf-8',(err,data)=>{
-            if(err) throw err
+    console.log(req.url)
+    if(req.url == "/index.html"){
+        fs.readFile("web/index.html",'utf-8',(err,data)=>{
+            if(err) throw err 
             resp.end(data)
-    })
+        })
     }
-    if(req.url ==="/about"){
-        fs.readFile(path.join(__dirname,"web","about.html"),'utf-8',(err,data)=>{
-            if(err) throw err
+    if(req.url == "/about.html"){
+        console.log("Test Case 1234")
+
+        fs.readFile("web/about.html",'utf-8',(err,data)=>{
+            if(err) throw err 
             resp.end(data)
-    })
+        })
     }
     else{
-        fs.readFile(path.join(__dirname,"web","contact.html"),'utf-8',(err,data)=>{
-            if(err) throw err
+        fs.readFile("web/contact.html",'utf-8',(err,data)=>{
+            if(err) throw err 
             resp.end(data)
-    })
+        })
     }
+
+    
 })
 server.listen(port,host,(err)=>{
-    if(err) throw err
-    console.log("Server Running successfully")
+    if(err)throw err 
+    console.log("Server running ")
 })
